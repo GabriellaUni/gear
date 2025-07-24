@@ -1,5 +1,6 @@
 stream
-  |from().database("sensors").measurement("mqtt_consumer")
-  |stateCount(lambda: "accel" > 11).as("event_count")
-  |eval(lambda: 100.0 - "event_count").as("rul")
-  |influxDBOut().database("sensors").measurement("rul").precision("s")
+    |from().database('sensors').measurement('mqtt_consumer')
+    |stateCount(lambda: "accel" > 11).as('event_count')
+    |eval(lambda: 100.0 - "event_count").as('rul')
+    |influxDBOut().database('sensors').measurement('rul').precision('s')
+
