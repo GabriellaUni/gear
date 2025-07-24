@@ -1,0 +1,15 @@
+stream
+  |from()
+      .database('sensors')
+      .measurement('mqtt_consumer')
+  // Conta quanti punti soddisfano accel>11 (running count)
+  |stateCount(lambda: "accel" > 11)
+      .as('event_count')
+  // Calcola RUL = 100 - event_count
+  |eval(lambda: 100.0 - "event_count")
+      .as('rul')
+  // Salva la serie rul nel database
+  |influxDBOut()
+      .database('sensors')
+      .measurement('rul')
+      .precision('s')
