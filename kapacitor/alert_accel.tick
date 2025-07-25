@@ -1,9 +1,6 @@
 // alert_accel.tick - alert su accel>11 e accel>15
 stream
   |from().database('sensors').measurement('mqtt_consumer')
-  |alert()
-      .warn(lambda: "accel" > 11)
-      .crit(lambda: "accel" > 15)
-      .message('{{ .Level }} accel={{ index .Fields "accel" }}')
+  |alert().stateChangesOnly(false).warn(lambda: "accel" > 11).crit(lambda: "accel" > 15).message('{{ .Level }} accel={{ index .Fields "accel" }}')
   |influxDBOut().database('sensors').measurement('alerts')
 
