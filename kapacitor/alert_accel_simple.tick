@@ -2,12 +2,9 @@ stream
   |from()
       .database('sensors')
       .measurement('mqtt_consumer')
-  // Crea un campo flag che vale 1 se accel>11, 0 altrimenti
-  |eval(lambda: "accel" > 11 ? 1 : 0)
-      .as('is_warn')
-  // Tieni solo i punti dove is_warn==1
-  |where(lambda: "is_warn" == 1)
-  // Scrivi il punto originale (con accel e host) in alerts
+  // Filtra solo i punti con accel > 11
+  |where(lambda: "accel" > 11)
+  // Scrive i punti filtrati in alerts
   |influxDBOut()
       .database('sensors')
       .measurement('alerts')
