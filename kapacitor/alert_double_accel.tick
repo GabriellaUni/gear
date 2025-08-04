@@ -1,0 +1,21 @@
+// alert_double_accel.tick
+
+// 1) Define source and filter it with from()
+var data = stream
+    |from()
+        .database('sensors')
+        .measurement('mqtt_consumer')
+
+// 2)  alert on accel > 11
+data
+    |where(lambda: "accel" > 11)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_accel0')
+
+// 3) alert on accel1 > 10.4
+data
+    |where(lambda: "accel1" > 10.4)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_accel1')
