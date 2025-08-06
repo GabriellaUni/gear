@@ -1,0 +1,77 @@
+// alert_double_accel.tick
+
+// 1) Define source and filter it with from()
+var data = stream
+    |from()
+        .database('sensors')
+        .measurement('mqtt_consumer')
+
+// 2) alert on accel > 11
+data
+    |where(lambda: "accel" > 11)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_accel0')
+
+// 3) alert on accel1 > 10.4
+data
+    |where(lambda: "accel1" > 10.4)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_accel1')
+
+// 4) alert on humidity > 40
+data
+    |where(lambda: "humidity" > 40)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_humidity')
+
+// 5) alert on temp_dht > 25
+data
+    |where(lambda: "temp_dht" > 25)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_temp_dht')
+
+// 6) alert on humidity1 > 32
+data
+    |where(lambda: "humidity1" > 32)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_humidity1')
+
+// 7) alert on temp_dht1 > 25
+data
+    |where(lambda: "temp_dht1" > 25)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_temp_dht1')
+
+// 8) alert on gyro > 0.1
+data
+    |where(lambda: "gyro" > 0.1)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_gyro')
+
+// 9) alert on temp_mpu > 29
+data
+    |where(lambda: "temp_mpu" > 29)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_temp_mpu')
+
+// 10) alert on gyro1 > 0.1
+data
+    |where(lambda: "gyro1" > 0.1)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_gyro1')
+
+// 11) alert on temp_mpu1 > 32
+data
+    |where(lambda: "temp_mpu1" > 32)
+    |influxDBOut()
+        .database('sensors')
+        .measurement('alerts_temp_mpu1')
